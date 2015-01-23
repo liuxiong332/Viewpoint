@@ -202,8 +202,10 @@ module Viewpoint::EWS::Types
             rhash[ctype] << c[ctype][:elems][0][:item_id][:attribs]
           else
             type = c[ctype][:elems][0].keys.first
-            item = class_by_name(type).new(ews, c[ctype][:elems][0][type])
-            rhash[ctype] << item
+            if type != :item
+              item = class_by_name(type).new(ews, c[ctype][:elems][0][type])
+              rhash[ctype] << item
+            end
           end
         end
         rhash
